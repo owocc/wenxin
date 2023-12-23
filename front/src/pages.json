@@ -1,0 +1,64 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index"
+    },
+    {
+      "path": "pages/me/index"
+    },
+    {
+      "path": "pages/account/profile"
+    },
+    {
+      "path": "pages/statistic/index"
+    },
+
+    {
+      "path": "pages/test/index",
+      "style": {
+        "navigationBarTitleText": "测试"
+      }
+    },
+    {
+      "path": "pages/create/svp"
+    },
+    {
+      "path": "pages/create/qna"
+    },
+    {
+      "path": "pages/account/login"
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "@navTxtStyle",
+    "navigationBarTitleText": "问心调查",
+    "navigationBarBackgroundColor": "@navBgColor",
+    "backgroundColor": "@navBgColor",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#ee0a24",
+    "backgroundColor": "@navBgColor",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "mp-sticky": "@miniprogram-component-plus/sticky"
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^nut-(.*)?-(.*)": "nutui-uniapp/components/$1$2/$1$2.vue",
+      "^nut-(.*)": "nutui-uniapp/components/$1/$1.vue"
+    }
+  }
+}
