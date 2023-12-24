@@ -1,3 +1,4 @@
+import type { Questionnaire, Question, Option, Answer } from '../prisma/client'
 // 用户登录所需参数
 export type UserLoginDto = {
   code: string
@@ -21,6 +22,23 @@ export interface JwtPayload {
 // jwt 验证结果类型
 export interface JwtVerifyResult {
   ok: boolean
-  payload?: JwtPayload 
+  payload?: JwtPayload
 }
 
+export type OptionDto = Partial<Option>
+
+export interface QuestionsDto extends Partial<Question> {
+  options: Partial<Option>[]
+}
+
+// 问卷创建Dto
+export interface QuestionnaireCreateDto extends Partial<Questionnaire> {
+  questions?: Partial<QuestionsDto>[]
+}
+
+export interface AnswerDto {
+  questionId: string
+  optionIds: string[]
+  answer: string | null
+  type: number
+}

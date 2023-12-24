@@ -1,5 +1,7 @@
 import { baseurl } from '../config/index'
 import type { Result } from '../../../share/types/global'
+import { useUserStore } from '../stores/user'
+
 interface UseFetchParams {
   method?:
     | 'OPTIONS'
@@ -29,13 +31,17 @@ export default <T>(
   uni.showLoading({
     title: '发起冲锋中...'
   })
-
+  const userStore = useUserStore()
   return new Promise((resolve, reject) => {
     uni.request({
       url: `${baseurl}${url}`,
       data: params.body || params.query,
       method: params?.method,
-      header: params?.header,
+      header: {
+        // 携带 token
+        Authorization: userStore.token && `Bearer ${userStore.token}`,
+        ...params?.header
+      },
       timeout: 5000,
       // 请求成功的回调
       success: (e) => {

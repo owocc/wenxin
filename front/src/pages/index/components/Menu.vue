@@ -12,32 +12,18 @@
       <MenuItem
         box-class="from-blue-700 to-blue-400 bg-gradient-to-tr"
         icon="i-ph-radio-button"
-        title="单选投票"
-        to="/pages/create/qna"
-        desc="创建一个单选投票" />
+        title="数据统计"
+        to="/pages/question/index?id=clqj744xt0007x3q2x1af4tcg"
+        desc="查看问卷数据统计" />
     </view>
-    <!-- <view class="col-span-4 h-40">
-      <MenuItem
-        box-class="from-orange-500 to-orange-300 bg-gradient-to-tr"
-        icon="i-ph-file-image"
-        title="图文单选投票"
-        desc="创建带图文的单选投票" />
-    </view> -->
     <view class="col-span-4 h-40">
       <MenuItem
         box-class="from-rose-500 to-rose-300 bg-gradient-to-tr"
-        icon="i-ph-list-checks"
-        title="多选投票"
+        icon="i-ph-database-duotone"
+        title="问卷管理"
         to="/pages/create/qna"
-        desc="创建多选投票" />
+        desc="快捷管理问卷" />
     </view>
-    <!-- <view class="col-span-4 h-40">
-      <MenuItem
-        box-class="from-teal-500 to-teal-400 bg-gradient-to-tr"
-        icon="i-ph-images"
-        title="图文多选投票"
-        desc="创建带图文的多选投票" />
-    </view> -->
   </view>
 </template>
 <script setup lang="ts">

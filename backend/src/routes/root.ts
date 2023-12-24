@@ -1,6 +1,9 @@
 import express from 'express'
 import auth from './auth'
 import upload from './media'
+import user from './user'
+import question from './question'
+import answer from './answer'
 const root = express.Router()
 
 root.get('/', (_req, res) => {
@@ -9,4 +12,8 @@ root.get('/', (_req, res) => {
 
 root.use(auth)
 root.use(upload)
+root.use('/user', user)
+root.use('/question', question)
+root.use('/answer', answer)
+
 export default root

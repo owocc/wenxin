@@ -9,7 +9,7 @@ export default function useSafeAreaInsets() {
 
   const bottomPaddingStyle = () => {
     return {
-      paddingBottom: `${systemInfo.safeAreaInsets?.bottom || 8}px`
+      paddingBottom: `${systemInfo.safeAreaInsets?.bottom || 24}px`
     }
   }
   return {

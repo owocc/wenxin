@@ -1,5 +1,6 @@
 import prisma from '../lib/db'
-
+import { User } from '../../../share/prisma/client'
+import { JwtPayload } from '../../../share/types/dto'
 /**
  * 用户相关 services
  */
@@ -23,8 +24,37 @@ export const createUserByOpenId = (openId: string) => {
     data: {
       openId,
       name: '微信用户',
-      avatar:
-        'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132',
+      avatar: 'default.jpg',
+    },
+  })
+}
+/**
+ * 根据用户id更新用户信息
+ * @param user
+ * @param data
+ */
+export const updateUserById = (user: JwtPayload, data: Partial<User>) => {
+  return prisma.user.update({
+    where: {
+      id: user.userId,
+    },
+    data: {
+      ...data,
+      id: user.userId, // 防止恶意修改
+      openId: user.openId,
+    },
+  })
+}
+
+/**
+ * 根据用户id查找用户
+ * @param user
+ * @returns
+ */
+export const findUserById = (user: JwtPayload) => {
+  return prisma.user.findUnique({
+    where: {
+      id: user.userId,
     },
   })
 }

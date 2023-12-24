@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Result } from '../../../share/types/global'
 import { User } from '../../../share/prisma/client'
+import { baseurl } from '../config'
 // 用户数据
 
 export const useUserStore = defineStore(
@@ -44,13 +44,21 @@ export const useUserStore = defineStore(
       return !!token.value
     })
 
+    /**
+     * 获取用户头像
+     */
+    const avatar = computed(() => {
+      return `${baseurl}/media/${user.value.avatar}`
+    })
+
     return {
       user,
       token,
       setUser,
       setToken,
       clearData,
-      isLogin
+      isLogin,
+      avatar
     }
   },
   {

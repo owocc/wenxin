@@ -7,10 +7,7 @@
         class="i-ph-user-duotone text-2xl text-gray-800 dark:text-gray-100" />
     </template>
     <template v-else>
-      <img
-        :src="userStore.user.avatar"
-        class="h-full w-full"
-        mode="scaleToFill" />
+      <img :src="userStore.avatar" class="h-full w-full" mode="scaleToFill" />
     </template>
   </view>
 </template>

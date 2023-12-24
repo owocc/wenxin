@@ -20,13 +20,13 @@
       }
     },
     {
-      "path": "pages/create/svp"
-    },
-    {
       "path": "pages/create/qna"
     },
     {
       "path": "pages/account/login"
+    },
+    {
+      "path": "pages/question/index"
     }
   ],
   "globalStyle": {

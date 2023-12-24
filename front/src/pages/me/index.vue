@@ -4,8 +4,13 @@ import UserProfile from './components/UserProfile.vue'
 import OptionMenuList from './components/OptionMenu/index.vue'
 import Container from '@/components/Layout/Container.vue'
 import PageTabBar from '@/components/Layout/PageTabbar/index.vue'
-import { useUserStore } from '@/stores/user'
-const userStore = useUserStore()
+import useUser from '@/composables/useUser'
+
+// 获取用户信息
+onShow(async () => {
+  const { getUserInfo } = useUser()
+  await getUserInfo()
+})
 </script>
 <template>
   <Container>

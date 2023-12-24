@@ -12,13 +12,74 @@ datasource db {
 }
 
 model User {
-  id     String  @id @default(cuid())
+  id     String @id @default(cuid())
   name   String
-  openId String  @unique // 微信openid
+  openId String @unique // 微信openid
   avatar String // 头像地址
+
+  createAt      DateTime        @default(now())
+  updateAt      DateTime        @updatedAt()
+  questionnaire Questionnaire[]
+  answer        Answer[]
+
+  @@index([openId])
+}
+
+model Questionnaire {
+  id    String @id @default(cuid())
+  title String // 问卷标题
+  desc  String // 问卷描述
+
+  user      User       @relation(fields: [userId], references: [id]) // 问卷创建者 
+  userId    String
+  questions Question[]
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt()
+}
 
-  @@index([openId])
+model Question {
+  id      String   @id @default(cuid())
+  title   String // 问题标题
+  type    Int // 问题类型 1: 单选 2: 多选 3: 填空
+  image   String? // 问题图片
+  options Option[] // 问题选项
+
+  answer          Answer[]
+  questionnaire   Questionnaire? @relation(fields: [questionnaireId], references: [id]) // 问卷
+  questionnaireId String?
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
+}
+
+model Option {
+  id    String  @id @default(cuid())
+  title String // 选项标题
+  image String? // 选项图片
+
+  question   Question? @relation(fields: [questionId], references: [id]) // 问题
+  questionId String?
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
+  Answer   Answer[]
+}
+
+// 用户回答
+model Answer {
+  id String @id @default(cuid())
+
+  // 关联问题
+  qeustion   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  answers    Option?  @relation(fields: [optionId], references: [id]) // 对于单选和多选，关联选项
+  optionId   String?
+  answer     String? // 对于填空，关联填空内容
+
+  user   User   @relation(fields: [userId], references: [id]) // 回答者
+  userId String
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
 }

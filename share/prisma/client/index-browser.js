@@ -113,14 +113,61 @@ exports.Prisma.UserScalarFieldEnum = {
   updateAt: 'updateAt'
 };
 
+exports.Prisma.QuestionnaireScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  desc: 'desc',
+  userId: 'userId',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.QuestionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  type: 'type',
+  image: 'image',
+  questionnaireId: 'questionnaireId',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.OptionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  image: 'image',
+  questionId: 'questionId',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+};
+
+exports.Prisma.AnswerScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  optionId: 'optionId',
+  answer: 'answer',
+  userId: 'userId',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Questionnaire: 'Questionnaire',
+  Question: 'Question',
+  Option: 'Option',
+  Answer: 'Answer'
 };
 
 /**
