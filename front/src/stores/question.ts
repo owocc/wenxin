@@ -11,33 +11,8 @@ export const useQuestionStore = defineStore(
       questions: []
     })
 
-    // 单选投票数据
-    const singleQuestionnaire = ref<QuestionnaireCreateDto>({
-      title: '',
-      desc: '',
-      questions: [
-        {
-          title: '',
-          type: 1,
-          options: [
-            {
-              title: '',
-              image: ''
-            },
-            {
-              title: '',
-              image: ''
-            }
-          ]
-        }
-      ]
-    })
-
-    // 多选投票数据
-
     return {
-      questionnaire,
-      singleQuestionnaire
+      questionnaire
     }
   },
   {

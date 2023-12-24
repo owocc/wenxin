@@ -12,7 +12,12 @@
     {
       "path": "pages/statistic/index"
     },
-
+    {
+      "path": "pages/detail/statistic"
+    },
+    {
+      "path": "pages/detail/blank"
+    },
     {
       "path": "pages/test/index",
       "style": {
@@ -27,6 +32,9 @@
     },
     {
       "path": "pages/question/index"
+    },
+    {
+      "path": "pages/manage/index"
     }
   ],
   "globalStyle": {

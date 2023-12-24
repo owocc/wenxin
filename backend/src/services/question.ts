@@ -61,3 +61,70 @@ export const findQuestionnaireById = (id: string) => {
     },
   })
 }
+
+/**
+ * 获取用户所有问卷列表
+ */
+
+export const findQuestionnaireByUserId = (user: JwtPayload) => {
+  return prisma.questionnaire.findMany({
+    where: {
+      userId: user.userId,
+    },
+  })
+}
+
+/**
+ * 删除问卷
+ */
+
+export const deleteQuestionnaireById = async (id: string) => {
+  // 删除问卷
+  // 先删除所有该问卷的回答
+  await prisma.answer.deleteMany({
+    where: {
+      qeustion: {
+        questionnaireId: id,
+      },
+    },
+  })
+
+  //删除问卷的所有问题的所有选项
+  await prisma.option.deleteMany({
+    where: {
+      question: {
+        questionnaireId: id,
+      },
+    },
+  })
+
+  // 删除问卷的所有问题
+  await prisma.question.deleteMany({
+    where: {
+      questionnaireId: id,
+    },
+  })
+
+  // 删除问卷
+  return await prisma.questionnaire.delete({
+    where: {
+      id,
+    },
+  })
+}
+
+// 查询填空题列表
+export const getBlankList = (id: string) => {
+  return prisma.question.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      answer: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  })
+}

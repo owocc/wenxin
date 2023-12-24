@@ -28,9 +28,13 @@ interface OptionMenuProps {
   to?: string
 }
 const props = defineProps<OptionMenuProps>()
+const emit = defineEmits(['click'])
 const { useNavigateTo } = useRouter()
 const handlerGoto = () => {
-  console.log('goto')
-  useNavigateTo(props.to)
+  if (props.to) {
+    useNavigateTo(props.to)
+    return
+  }
+  emit('click')
 }
 </script>

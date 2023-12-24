@@ -3,7 +3,6 @@ import Container from '@/components/Layout/Container.vue'
 import Navbar from '@/components/Layout/NavBar.vue'
 import useQuestion from '@/composables/useQuestion'
 import type { Questionnaire } from '../../../../share/prisma/client'
-import useRouter from '@/composables/useRouter'
 const { fetchQuestionnaireList, fetchDeleteQuestionnaire } = useQuestion()
 
 const data = ref<Questionnaire[]>([])
@@ -19,15 +18,37 @@ const sliceTitle = (title: string) => {
   }
   return title
 }
-const { useNavigateTo } = useRouter()
+
 // 查看问卷详情
 const viewQuestionnaire = (id: string) => {
-  useNavigateTo(`/pages/detail/statistic?id=${id}`)
+  uni.navigateTo({
+    url: `/pages/question/index?id=${id}`
+  })
+}
+// 删除问卷
+const deleteQuestionnaire = (id: string) => {
+  uni.showModal({
+    title: '提示',
+    content: '确定删除该问卷吗?',
+    success: async (res) => {
+      if (res.confirm) {
+        await fetchDeleteQuestionnaire(id)
+        uni.showToast({
+          title: '删除成功',
+          icon: 'success'
+        })
+        // 重新获取列表
+        const result = await fetchQuestionnaireList()
+        data.value = result.data || []
+      }
+    }
+  })
 }
 </script>
 <template>
   <Container pt>
-    <Navbar title="数据统计" back />
+    <Navbar title="问卷管理" back />
+    <!-- 渲染列表,点击可以查看详情,右滑可以删除 -->
     <!-- 属性有 title 和 id,遍历data -->
     <scroll-view scroll-y style="height: 100%" class="pb-24">
       <view class="grid grid-cols-1 gap-2">
@@ -42,8 +63,13 @@ const viewQuestionnaire = (id: string) => {
           <view class="flex items-center gap-4">
             <view
               @click="viewQuestionnaire(item.id)"
-              class="rounded-full bg-gray-100 flex items-center justify-center p-2 border border-gray-950 text-gray-950 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 active:scale-95 transition-all">
-              <text class="i-ph-presentation-chart-duotone text-xl" />
+              class="rounded-full bg-gray-100 flex items-center justify-center p-2 active:scale-95 transition-all border border-gray-950 text-gray-950 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400">
+              <text class="i-ph-eye-duotone text-xl" />
+            </view>
+            <view
+              @click="deleteQuestionnaire(item.id)"
+              class="rounded-full active:scale-95 transition-all bg-gray-100 flex items-center justify-center p-2 border border-gray-950 text-gray-950 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400">
+              <text class="i-ph-trash-simple-duotone text-xl" />
             </view>
           </view>
         </view>

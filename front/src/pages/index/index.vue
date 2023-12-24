@@ -11,4 +11,10 @@ import PageNavBar from '@/components/Layout/PageNavBar.vue'
 import Menu from './components/Menu.vue'
 import PageTabbar from '@/components/Layout/PageTabbar/index.vue'
 import Container from '@/components/Layout/Container.vue'
+onLaunch(() => {
+  uni.hideTabBar()
+})
+onShow(() => {
+  uni.hideTabBar()
+})
 </script>

@@ -42,7 +42,7 @@ export default <T>(
         Authorization: userStore.token && `Bearer ${userStore.token}`,
         ...params?.header
       },
-      timeout: 5000,
+      timeout: 50000,
       // 请求成功的回调
       success: (e) => {
         const result = e.data as Result<T>

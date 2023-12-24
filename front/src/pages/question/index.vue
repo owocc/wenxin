@@ -21,20 +21,30 @@ const { fetchQuestionnaireDetail, fetchAnswerQuestionnaire } = useQuestion()
 const data = ref<QuestionDetailWithQuestions | null>(null)
 
 onLoad(async (option: any) => {
-  const result = await fetchQuestionnaireDetail(option.id)
-  // 为结果断言扩展后的类型
-  data.value = result.data as QuestionDetailWithQuestions
+  try {
+    const result = await fetchQuestionnaireDetail(option.id)
 
-  // 检查 data.value 是否不为空
-  if (data.value) {
-    for (let i = 0; i < data.value.questions.length; i++) {
-      const question = data.value.questions[i]
-      if (question.type === 1 || question.type === 2) {
-        question.optionIds = []
-      } else {
-        question.answer = ''
+    // 为结果断言扩展后的类型
+    data.value = result.data as QuestionDetailWithQuestions
+
+    // 检查 data.value 是否不为空
+    if (data.value) {
+      for (let i = 0; i < data.value.questions.length; i++) {
+        const question = data.value.questions[i]
+        if (question.type === 1 || question.type === 2) {
+          question.optionIds = []
+        } else {
+          question.answer = ''
+        }
       }
     }
+  } catch (e) {
+    const { useBackToHome } = useRouter()
+    useBackToHome()
+    uni.showToast({
+      title: '问卷不存在',
+      icon: 'none'
+    })
   }
 })
 
@@ -95,13 +105,6 @@ const handlerSubmit = () => {
     }
   })
 }
-
-const handlerShare = () => {
-  uni.showShareMenu({
-    withShareTicket: true,
-    menus: ['shareAppMessage', 'shareTimeline']
-  })
-}
 </script>
 <template>
   <Container pt>
@@ -111,10 +114,11 @@ const handlerShare = () => {
 
       <view>
         <!-- 问卷标题和描述卡片 -->
-        <view class="bg-white rounded-lg p-4 mb-4">
+        <view
+          class="bg-white rounded-lg p-4 mb-4 dark:bg-gray-800 dark:border-gray-600">
           <view class="flex justify-between w-full">
             <text class="text-lg font-bold mb-2 flex-1">{{ data?.title }}</text>
-            <text class="i-ph-share-duotone text-2xl" @click="handlerShare" />
+            <button open-type="share" class="i-ph-share-duotone text-2xl" />
           </view>
           <view class="text-sm text-gray-500 cursor-pointer">
             {{ data?.desc }}
@@ -125,7 +129,8 @@ const handlerShare = () => {
       <!-- 遍历题目,让用户选择,根据不同题型不同样式,1,2是单选和多选,3是填空 -->
       <view>
         <view v-for="(item, index) in data?.questions" :key="index">
-          <view class="bg-white rounded-lg p-4 mb-4">
+          <view
+            class="bg-white rounded-lg p-4 mb-4 dark:bg-gray-800 dark:border-gray-600">
             <view class="text-lg font-bold mb-2">{{ item.title }}</view>
             <view class="text-sm text-gray-500">
               <!-- 遍历options,让他有单选和多选不同状态 -->
@@ -154,7 +159,7 @@ const handlerShare = () => {
 
               <template v-if="item.type === 3">
                 <view
-                  class="border rounded-md border-gray-200 focus-within:border-orange-500 transition-all">
+                  class="border rounded-md border-gray-200 focus-within:border-orange-500 transition-all dark:border-gray-500">
                   <input
                     v-model="item.answer"
                     placeholder="请输入你的回答"

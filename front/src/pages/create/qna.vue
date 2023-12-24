@@ -183,7 +183,7 @@ const handlerSubmit = async () => {
     <Tabbar>
       <button
         @click="handlerClear"
-        class="w-full rounded-full after:border-gray-200 after:rounded-full bg-gray-50 active:bg-gray-100 text-gray-500 transition-all">
+        class="w-full rounded-full after:border-gray-200 after:rounded-full bg-gray-50 active:bg-gray-100 text-gray-500 transition-all dark:bg-gray-700 dark:text-gray-300 dark:after:border-gray-400 dark:active:bg-gray-600">
         清空
       </button>
 

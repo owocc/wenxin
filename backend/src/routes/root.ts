@@ -4,6 +4,7 @@ import upload from './media'
 import user from './user'
 import question from './question'
 import answer from './answer'
+import statistic from './statistic'
 const root = express.Router()
 
 root.get('/', (_req, res) => {
@@ -15,5 +16,5 @@ root.use(upload)
 root.use('/user', user)
 root.use('/question', question)
 root.use('/answer', answer)
-
+root.use('/statistic', statistic)
 export default root

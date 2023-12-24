@@ -1,6 +1,6 @@
 <template>
   <view :class="pageClasses" :style="props.pt ? topPaddingStyle() : {}">
-    <view :class="props.pt ? 'pt-16' : ''">
+    <view :class="props.pt ? 'pt-20' : ''">
       <slot />
     </view>
   </view>
